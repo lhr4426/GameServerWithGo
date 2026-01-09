@@ -21,71 +21,128 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CS_Ping struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Time          int64                  `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
+type MessageType int32
 
-func (x *CS_Ping) Reset() {
-	*x = CS_Ping{}
-	mi := &file_protocol_game_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+const (
+	MessageType_MESSAGE_TYPE_UNSPECIFIED MessageType = 0
+	MessageType_PING                     MessageType = 1
+	MessageType_PONG                     MessageType = 2
+)
 
-func (x *CS_Ping) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CS_Ping) ProtoMessage() {}
-
-func (x *CS_Ping) ProtoReflect() protoreflect.Message {
-	mi := &file_protocol_game_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
+// Enum value maps for MessageType.
+var (
+	MessageType_name = map[int32]string{
+		0: "MESSAGE_TYPE_UNSPECIFIED",
+		1: "PING",
+		2: "PONG",
 	}
-	return mi.MessageOf(x)
+	MessageType_value = map[string]int32{
+		"MESSAGE_TYPE_UNSPECIFIED": 0,
+		"PING":                     1,
+		"PONG":                     2,
+	}
+)
+
+func (x MessageType) Enum() *MessageType {
+	p := new(MessageType)
+	*p = x
+	return p
 }
 
-// Deprecated: Use CS_Ping.ProtoReflect.Descriptor instead.
-func (*CS_Ping) Descriptor() ([]byte, []int) {
+func (x MessageType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (MessageType) Descriptor() protoreflect.EnumDescriptor {
+	return file_protocol_game_proto_enumTypes[0].Descriptor()
+}
+
+func (MessageType) Type() protoreflect.EnumType {
+	return &file_protocol_game_proto_enumTypes[0]
+}
+
+func (x MessageType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use MessageType.Descriptor instead.
+func (MessageType) EnumDescriptor() ([]byte, []int) {
 	return file_protocol_game_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CS_Ping) GetTime() int64 {
-	if x != nil {
-		return x.Time
-	}
-	return 0
-}
-
-type SC_Ping struct {
+type Packet struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Time          int64                  `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
+	Type          MessageType            `protobuf:"varint,1,opt,name=type,proto3,enum=protocol.MessageType" json:"type,omitempty"`
+	Payload       []byte                 `protobuf:"bytes,2,opt,name=payload,proto3" json:"payload,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SC_Ping) Reset() {
-	*x = SC_Ping{}
+func (x *Packet) Reset() {
+	*x = Packet{}
+	mi := &file_protocol_game_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Packet) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Packet) ProtoMessage() {}
+
+func (x *Packet) ProtoReflect() protoreflect.Message {
+	mi := &file_protocol_game_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Packet.ProtoReflect.Descriptor instead.
+func (*Packet) Descriptor() ([]byte, []int) {
+	return file_protocol_game_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *Packet) GetType() MessageType {
+	if x != nil {
+		return x.Type
+	}
+	return MessageType_MESSAGE_TYPE_UNSPECIFIED
+}
+
+func (x *Packet) GetPayload() []byte {
+	if x != nil {
+		return x.Payload
+	}
+	return nil
+}
+
+type Ping struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp     int64                  `protobuf:"varint,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Ping) Reset() {
+	*x = Ping{}
 	mi := &file_protocol_game_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SC_Ping) String() string {
+func (x *Ping) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SC_Ping) ProtoMessage() {}
+func (*Ping) ProtoMessage() {}
 
-func (x *SC_Ping) ProtoReflect() protoreflect.Message {
+func (x *Ping) ProtoReflect() protoreflect.Message {
 	mi := &file_protocol_game_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -97,40 +154,39 @@ func (x *SC_Ping) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SC_Ping.ProtoReflect.Descriptor instead.
-func (*SC_Ping) Descriptor() ([]byte, []int) {
+// Deprecated: Use Ping.ProtoReflect.Descriptor instead.
+func (*Ping) Descriptor() ([]byte, []int) {
 	return file_protocol_game_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SC_Ping) GetTime() int64 {
+func (x *Ping) GetTimestamp() int64 {
 	if x != nil {
-		return x.Time
+		return x.Timestamp
 	}
 	return 0
 }
 
-type Vector2 struct {
+type Pong struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	X             float32                `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y             float32                `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
+	Timestamp     int64                  `protobuf:"varint,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Vector2) Reset() {
-	*x = Vector2{}
+func (x *Pong) Reset() {
+	*x = Pong{}
 	mi := &file_protocol_game_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Vector2) String() string {
+func (x *Pong) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Vector2) ProtoMessage() {}
+func (*Pong) ProtoMessage() {}
 
-func (x *Vector2) ProtoReflect() protoreflect.Message {
+func (x *Pong) ProtoReflect() protoreflect.Message {
 	mi := &file_protocol_game_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -142,83 +198,34 @@ func (x *Vector2) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Vector2.ProtoReflect.Descriptor instead.
-func (*Vector2) Descriptor() ([]byte, []int) {
+// Deprecated: Use Pong.ProtoReflect.Descriptor instead.
+func (*Pong) Descriptor() ([]byte, []int) {
 	return file_protocol_game_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Vector2) GetX() float32 {
+func (x *Pong) GetTimestamp() int64 {
 	if x != nil {
-		return x.X
+		return x.Timestamp
 	}
 	return 0
-}
-
-func (x *Vector2) GetY() float32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-type CS_Move struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Direction     *Vector2               `protobuf:"bytes,1,opt,name=direction,proto3" json:"direction,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CS_Move) Reset() {
-	*x = CS_Move{}
-	mi := &file_protocol_game_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CS_Move) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CS_Move) ProtoMessage() {}
-
-func (x *CS_Move) ProtoReflect() protoreflect.Message {
-	mi := &file_protocol_game_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CS_Move.ProtoReflect.Descriptor instead.
-func (*CS_Move) Descriptor() ([]byte, []int) {
-	return file_protocol_game_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *CS_Move) GetDirection() *Vector2 {
-	if x != nil {
-		return x.Direction
-	}
-	return nil
 }
 
 var File_protocol_game_proto protoreflect.FileDescriptor
 
 const file_protocol_game_proto_rawDesc = "" +
 	"\n" +
-	"\x13protocol/game.proto\x12\bprotocol\"\x1d\n" +
-	"\aCS_Ping\x12\x12\n" +
-	"\x04time\x18\x01 \x01(\x03R\x04time\"\x1d\n" +
-	"\aSC_Ping\x12\x12\n" +
-	"\x04time\x18\x01 \x01(\x03R\x04time\"%\n" +
-	"\aVector2\x12\f\n" +
-	"\x01x\x18\x01 \x01(\x02R\x01x\x12\f\n" +
-	"\x01y\x18\x02 \x01(\x02R\x01y\":\n" +
-	"\aCS_Move\x12/\n" +
-	"\tdirection\x18\x01 \x01(\v2\x11.protocol.Vector2R\tdirectionB\x16Z\x14game-server/protocolb\x06proto3"
+	"\x13protocol/game.proto\x12\bprotocol\"M\n" +
+	"\x06Packet\x12)\n" +
+	"\x04type\x18\x01 \x01(\x0e2\x15.protocol.MessageTypeR\x04type\x12\x18\n" +
+	"\apayload\x18\x02 \x01(\fR\apayload\"$\n" +
+	"\x04Ping\x12\x1c\n" +
+	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp\"$\n" +
+	"\x04Pong\x12\x1c\n" +
+	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp*?\n" +
+	"\vMessageType\x12\x1c\n" +
+	"\x18MESSAGE_TYPE_UNSPECIFIED\x10\x00\x12\b\n" +
+	"\x04PING\x10\x01\x12\b\n" +
+	"\x04PONG\x10\x02B\x16Z\x14game-server/protocolb\x06proto3"
 
 var (
 	file_protocol_game_proto_rawDescOnce sync.Once
@@ -232,15 +239,16 @@ func file_protocol_game_proto_rawDescGZIP() []byte {
 	return file_protocol_game_proto_rawDescData
 }
 
-var file_protocol_game_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_protocol_game_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_protocol_game_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_protocol_game_proto_goTypes = []any{
-	(*CS_Ping)(nil), // 0: protocol.CS_Ping
-	(*SC_Ping)(nil), // 1: protocol.SC_Ping
-	(*Vector2)(nil), // 2: protocol.Vector2
-	(*CS_Move)(nil), // 3: protocol.CS_Move
+	(MessageType)(0), // 0: protocol.MessageType
+	(*Packet)(nil),   // 1: protocol.Packet
+	(*Ping)(nil),     // 2: protocol.Ping
+	(*Pong)(nil),     // 3: protocol.Pong
 }
 var file_protocol_game_proto_depIdxs = []int32{
-	2, // 0: protocol.CS_Move.direction:type_name -> protocol.Vector2
+	0, // 0: protocol.Packet.type:type_name -> protocol.MessageType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -258,13 +266,14 @@ func file_protocol_game_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protocol_game_proto_rawDesc), len(file_protocol_game_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   4,
+			NumEnums:      1,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_protocol_game_proto_goTypes,
 		DependencyIndexes: file_protocol_game_proto_depIdxs,
+		EnumInfos:         file_protocol_game_proto_enumTypes,
 		MessageInfos:      file_protocol_game_proto_msgTypes,
 	}.Build()
 	File_protocol_game_proto = out.File
