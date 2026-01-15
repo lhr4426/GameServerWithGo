@@ -15,7 +15,7 @@ type Connection struct {
 }
 
 // 패킷을 받아서 연결 정보를 통해 보냄
-func (conn *Connection) Send(pkt *protocol.Packet) error {
+func (conn *Connection) SendPacket(pkt *protocol.Packet) error {
 	frame, err := conn.Writer.Write(pkt)
 	if err != nil {
 		return err
@@ -26,7 +26,7 @@ func (conn *Connection) Send(pkt *protocol.Packet) error {
 }
 
 // 페이로드 부분만 받아서 알아서 패킷화
-func (conn *Connection) MakeMessaage(msgType protocol.MessageType, msg proto.Message) error {
+func (conn *Connection) SendMessage(msgType protocol.MessageType, msg proto.Message) error {
 	payload, err := proto.Marshal(msg)
 	if err != nil {
 		return err
@@ -37,5 +37,5 @@ func (conn *Connection) MakeMessaage(msgType protocol.MessageType, msg proto.Mes
 		Payload: payload,
 	}
 
-	return conn.Send(pkt)
+	return conn.SendPacket(pkt)
 }
