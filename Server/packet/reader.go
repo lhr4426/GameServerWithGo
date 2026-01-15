@@ -12,7 +12,7 @@ func NewPacketReader() *PacketReader {
 }
 
 // PacketReader에 남은 버퍼에 새 데이터를 붙여서 패킷화 시도
-func (r *PacketReader) Pull(data []byte) ([][]byte, error) {
+func (r *PacketReader) Read(data []byte) ([][]byte, error) {
 	frames, remain := ParseFrames(append(r.buffer, data...))
 	r.buffer = remain
 	return frames, nil

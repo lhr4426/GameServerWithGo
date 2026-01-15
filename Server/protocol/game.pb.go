@@ -124,7 +124,6 @@ func (x *Packet) GetPayload() []byte {
 
 type Ping struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Timestamp     int64                  `protobuf:"varint,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -157,13 +156,6 @@ func (x *Ping) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Ping.ProtoReflect.Descriptor instead.
 func (*Ping) Descriptor() ([]byte, []int) {
 	return file_protocol_game_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *Ping) GetTimestamp() int64 {
-	if x != nil {
-		return x.Timestamp
-	}
-	return 0
 }
 
 type Pong struct {
@@ -217,9 +209,8 @@ const file_protocol_game_proto_rawDesc = "" +
 	"\x13protocol/game.proto\x12\bprotocol\"M\n" +
 	"\x06Packet\x12)\n" +
 	"\x04type\x18\x01 \x01(\x0e2\x15.protocol.MessageTypeR\x04type\x12\x18\n" +
-	"\apayload\x18\x02 \x01(\fR\apayload\"$\n" +
-	"\x04Ping\x12\x1c\n" +
-	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp\"$\n" +
+	"\apayload\x18\x02 \x01(\fR\apayload\"\x06\n" +
+	"\x04Ping\"$\n" +
 	"\x04Pong\x12\x1c\n" +
 	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp*?\n" +
 	"\vMessageType\x12\x1c\n" +

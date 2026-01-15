@@ -15,12 +15,12 @@ func NewPacketWriter() *PacketWriter {
 }
 
 // 직렬화 된 패킷 반환
-func (w *PacketWriter) Write(pkt *Packet) ([]byte, error) {
+func (w *PacketWriter) Write(pkt *protocol.Packet) ([]byte, error) {
 	return SerializePacket(pkt)
 }
 
 // 패킷 구조체를 바이트 배열로 변경
-func SerializePacket(pkt *Packet) ([]byte, error) {
+func SerializePacket(pkt *protocol.Packet) ([]byte, error) {
 	// 1. 내부에서 돌던 패킷을 Protobuf에 규정한 패킷으로 바꿈
 	protoPkt := &protocol.Packet{
 		Type:    pkt.Type,
