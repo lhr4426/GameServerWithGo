@@ -1,11 +1,11 @@
 package network
 
 import (
-	"game-server/codec"
-	"game-server/dispatch"
-	"game-server/internal/logger"
-	"game-server/packet"
-	"game-server/protocol"
+	"game-client/codec"
+	"game-client/dispatch"
+	"game-client/internal/logger"
+	"game-client/packet"
+	"game-client/protocol"
 	"net"
 
 	"google.golang.org/protobuf/proto"
@@ -35,7 +35,7 @@ func (conn *Connection) ReadLoop() {
 	for {
 		n, err := conn.Conn.Read(buf) // 바이트 배열에다가 읽어옴 (블로킹). 반환값은 읽어온 바이트 개수
 		if err != nil {
-			logger.NetworkLogger.Println("Read Loop Error : ", err.Error())
+			logger.ClientLogger.Println("Read Loop Error : ", err.Error())
 			return
 		}
 
@@ -49,7 +49,7 @@ func (conn *Connection) ReadLoop() {
 func (conn *Connection) SendPacket(pkt *protocol.Packet) error {
 	frame, err := conn.Writer.Write(pkt)
 	if err != nil {
-		logger.NetworkLogger.Println("Send Packet Error : ", err.Error())
+		logger.ClientLogger.Println("Send Packet Error : ", err.Error())
 		return err
 	}
 
@@ -61,7 +61,7 @@ func (conn *Connection) SendPacket(pkt *protocol.Packet) error {
 func (conn *Connection) SendMessage(msgType protocol.MessageType, msg proto.Message) error {
 	payload, err := proto.Marshal(msg)
 	if err != nil {
-		logger.NetworkLogger.Println("Send Message Error : ", err.Error())
+		logger.ClientLogger.Println("Send Message Error : ", err.Error())
 		return err
 	}
 

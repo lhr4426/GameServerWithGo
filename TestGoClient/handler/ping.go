@@ -1,18 +1,18 @@
 package handler
 
 import (
-	"game-server/common"
-	"game-server/dispatch"
-	"game-server/internal/logger"
-	"game-server/protocol"
+	"game-client/common"
+	"game-client/dispatch"
+	"game-client/internal/logger"
+	"game-client/protocol"
 	"time"
 )
 
 func init() {
-	logger.HandlerLogger.Println("Initialize Handler Started")
+	logger.ClientLogger.Println("Initialize Handler Started")
 	dispatch.Register(&protocol.Ping{}, handlePing)
 
-	logger.HandlerLogger.Println("Initialize Handler Successed")
+	logger.ClientLogger.Println("Initialize Handler Successed")
 }
 
 // MessageType : Ping 일 때 핸들러
@@ -26,10 +26,10 @@ func handlePing(conn common.ConnContext, msg any) {
 		return
 	}
 
-	logger.HandlerLogger.Println("Ping Request")
+	logger.ClientLogger.Println("Ping Request")
 
 	serverTime := time.Now().UnixMilli()
-	logger.HandlerLogger.Println("Pong Response : ", serverTime)
+	logger.ClientLogger.Println("Pong Response : ", serverTime)
 
 	pong := &protocol.Pong{
 		Timestamp: serverTime,

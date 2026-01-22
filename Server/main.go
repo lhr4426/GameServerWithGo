@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"game-server/internal/logger"
 	"game-server/network"
-	"time"
 )
 
 func main() {
-	fmt.Println(time.Now(), " | Server Start")
+	logger.Init()
+	logger.NetworkLogger.Println("Server Start")
+
 	network.StartServer()
 }

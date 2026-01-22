@@ -1,7 +1,7 @@
 package network
 
 import (
-	"game-server/internal/logger"
+	"game-client/internal/logger"
 	"net"
 )
 
@@ -16,19 +16,19 @@ func StartServer() {
 	// 1. 9000번 포트로 리스닝 시작
 	ln, err := net.Listen("tcp", ":9000")
 	if err != nil {
-		logger.NetworkLogger.Fatalln("Server Listening Error : ", err.Error())
+		logger.ClientLogger.Fatalln("Server Listening Error : ", err.Error())
 	}
 
-	logger.NetworkLogger.Println("Server Listening on Port 9000")
+	logger.ClientLogger.Println("Server Listening on Port 9000")
 
 	for {
 		rawConn, err := ln.Accept() // 2. 클라이언트가 들어올 때 까지 블로킹
 		if err != nil {
-			logger.NetworkLogger.Println("Accept Error: ", err)
+			logger.ClientLogger.Println("Accept Error: ", err)
 			continue
 		}
 
-		logger.NetworkLogger.Println("Client Connected : ", rawConn.RemoteAddr().String())
+		logger.ClientLogger.Println("Client Connected : ", rawConn.RemoteAddr().String())
 
 		conn := NewConnection(rawConn)
 

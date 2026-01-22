@@ -1,7 +1,7 @@
 package dispatch
 
 import (
-	"game-server/common"
+	"game-client/common"
 	"reflect"
 )
 

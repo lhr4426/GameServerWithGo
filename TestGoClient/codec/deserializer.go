@@ -1,8 +1,8 @@
 package codec
 
 import (
-	"game-server/internal/logger"
-	"game-server/protocol"
+	"game-client/internal/logger"
+	"game-client/protocol"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -13,7 +13,7 @@ func DeserializePacket(frame []byte) (*protocol.Packet, error) {
 	// 역직렬화 해서 Protobuf Packet 구조체로 변환
 	var pkt protocol.Packet
 	if err := proto.Unmarshal(frame[4:], &pkt); err != nil {
-		logger.PacketLogger.Println("Deserialize Packet Error : ", err)
+		logger.ClientLogger.Println("Deserialize Packet Error : ", err)
 		return nil, err
 	}
 

@@ -2,8 +2,8 @@ package packet
 
 import (
 	"encoding/binary"
-	"game-server/internal/logger"
-	"game-server/protocol"
+	"game-client/internal/logger"
+	"game-client/protocol"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -31,7 +31,7 @@ func SerializePacket(pkt *protocol.Packet) ([]byte, error) {
 	// 2. 패킷을 바이트 배열로 변경
 	packetBytes, err := proto.Marshal(protoPkt)
 	if err != nil {
-		logger.PacketLogger.Println("Serialize Packet Error : ", err.Error())
+		logger.ClientLogger.Println("Serialize Packet Error : ", err.Error())
 		return nil, err
 	}
 
